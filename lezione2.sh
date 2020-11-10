@@ -47,9 +47,57 @@ mkdir -p A1/B2/C3
 touch A1/B2/C3/{1,2,3}.txt
 mv A1/B2/C3/* A1/B2
 cp A1/B2/* A1
+cd ${OLD_WORKING_DIR}
 # 8. Provare a vedere il contenuto di tutti i file nascosti presenti nella propria home
 # directory, usando il comando cat. Notare il problema dato dal fatto che .* viene
 # espanso anche con ..
 cat ~/.*
 # 9. Usare la funzionalità di completamento (tasto TAB) per scrivere velocemente
 # l’argomento del comando ls /usr/include/linux/netfilter/nf_nat.h
+# 10. Lanciare il comando history e scegliere uno dei comandi elencati da history.
+# Utilizzare le funzioni di history per rilanciare quel comando.
+
+#history 
+#echo "Quale comando vuoi eseguire?"
+#read COMMAND_NUMBER
+#echo "!${COMMAND_NUMBER}" | bash
+
+# 11. Usare il comando set per disabilitare la memorizzazione di history. Poi lanciare un
+# comando qualsiasi e poi lanciare history e verificare che quel comando non è stato
+# memorizzato. Infine, usare il comando set per riabilitare la memorizzazione di
+# history.
+set +o history
+ls -lsa
+set -o history
+history
+echo prova
+history
+set +o history
+# 12. Usare il comando set per abilitare la creazione di variabili d'ambiente e verificare se
+# funziona (inventarsi un modo per testare se le variabili sono create come var
+# d'ambiente oppure no)
+STAMPA_VAR_DOT_SH="#!/bin/bash\necho \$CIAO"
+echo -e $STAMPA_VAR_DOT_SH>lab02/stampa_var.sh
+chmod +x lab02/stampa_var.sh
+set -a
+CIAO="MONDO"
+#env
+echo "Se sotto vedi stampato \"${CIAO}\" allora la variabile è di ambiente"
+lab02/stampa_var.sh
+set +o allexport
+
+# 13. Inserire un comando echo, con un messaggio diverso, nei file .profile e .bashrc
+# Poi lanciare una shell interattiva NON di login e verificare quale dei due file viene
+# eseguito. Poi lanciare una shell NON interattiva e verificare che non viene eseguito
+# nessuno dei due file. Poi riportare i file .profile e .bashrc come erano all'inizio.
+# 14. Usare i metacaratteri per visualizzare con ls le proprietà dei file contenuti nella
+# directory /usr/lib/ che hanno un nome che contiene la stringa plu
+ls /usr/lib/*plu*
+# 15. Usare il comando man per studiare le opzioni del comando ls.
+# 16. Usare ls e le sue opzioni per visualizzare tutti i file nella directory /usr/include/ e
+# nelle sue sottodirectory.
+ls -R /usr/include
+# 17. Usare ls e le sue opzioni per visualizzare le informazioni di una directory
+# /usr/include/ senza visualizzare tutti i file nella directory
+echo "ES 17"
+ls -lsahd /usr/include
