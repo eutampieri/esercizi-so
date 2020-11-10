@@ -101,3 +101,19 @@ ls -R /usr/include
 # /usr/include/ senza visualizzare tutti i file nella directory
 echo "ES 17"
 ls -lsahd /usr/include
+
+# 18. Creare una sottodirectory
+# BUTTAMI e crearci dentro due file AbC.txt e ABC.txt
+mkdir BUTTAMI
+touch BUTTAMI/A{b,B}C.txt
+# 19. Eliminare il file appena creato ABC.txt
+rm BUTTAMI/ABC.txt
+# 20. Eliminare, con un unico comando, la directory BUTTAMI e tutti i files in essa
+# contenuti.
+rm -rf BUTTAMI
+# 21. Visualizzare, mediante ls e metacaratteri, tutti i files della directory /usr/lib/ il cui
+# nome contiene
+# - o un carattere numerico compreso tra 1 e 3
+# - oppure un carattere letterale compreso tra c ed m.
+# e che termina con l’estensione .0
+ls /usr/lib/*[1-3c-m]*.0
