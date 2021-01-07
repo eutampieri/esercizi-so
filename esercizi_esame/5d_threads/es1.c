@@ -32,7 +32,9 @@ void studente(void* num) {
             printf("Studente %d prende modulo... ci sono %d moduli adesso\n", stud_n, moduli);
             moduli--;
         }
-        pthread_cond_signal(&condvar);
+        if(moduli == 0) {
+            pthread_cond_signal(&condvar);
+        }
         pthread_mutex_unlock(&mutex);
     }
 }
