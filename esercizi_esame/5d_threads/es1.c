@@ -26,17 +26,16 @@ void impiegata(void* _) {
 }
 void studente(void* num) {
     int stud_n = (intptr_t*)(num);
-    while(1) {
-        pthread_mutex_lock(&mutex);
-        if(moduli > 0) {
-            printf("Studente %d prende modulo... ci sono %d moduli adesso\n", stud_n, moduli);
-            moduli--;
-        }
-        if(moduli == 0) {
-            pthread_cond_signal(&condvar);
-        }
-        pthread_mutex_unlock(&mutex);
+    pthread_mutex_lock(&mutex);
+    if(moduli > 0) {
+        printf("Studente %d prende modulo... ci sono %d moduli adesso\n", stud_n, moduli);
+        moduli--;
     }
+    if(moduli == 0) {
+        pthread_cond_signal(&condvar);
+    }
+    pthread_mutex_unlock(&mutex);
+    pthread_exit(NULL);
 }
 
 int main() {
