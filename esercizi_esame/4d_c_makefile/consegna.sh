@@ -12,7 +12,7 @@ do
 	DIFF=`diff $FILE ../${FILE}`
 	if [[ `echo $DIFF | wc -c` -ge 2 ]]
 	then
-		echo $DIFF > ../`echo $FILE | tr / _`.diff
+		diff $FILE ../${FILE} > ../`echo $FILE | tr / _`.diff
 	fi
 done
 cd ..

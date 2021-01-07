@@ -1,1 +1,4 @@
-5c5 < main.exe: A.o --- > main.exe: A.o main.o
+5c5
+< main.exe:	A.o
+---
+> main.exe:	A.o main.o

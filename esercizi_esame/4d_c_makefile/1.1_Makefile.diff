@@ -1,1 +1,4 @@
-8c8 < main.o main.c A.h def.h --- > main.o: main.c A.h def.h
+8c8
+< main.o		main.c A.h def.h
+---
+> main.o:		main.c A.h def.h

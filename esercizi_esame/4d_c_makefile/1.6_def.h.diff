@@ -1,1 +1,7 @@
-1c1,2 < --- > #ifndef __DEF_HEADER_INCLUDED__ > #define __DEF_HEADER_INCLUDED__ 2a4 > #endif
+1c1,2
+< 
+---
+> #ifndef __DEF_HEADER_INCLUDED__
+> #define __DEF_HEADER_INCLUDED__
+2a4
+> #endif
