@@ -9,7 +9,11 @@ mv 1 orig
 cd orig
 for FILE in */*
 do
-	diff $FILE ../${FILE} > ../`echo $FILE | tr / _`.diff
+	DIFF=`diff $FILE ../${FILE}`
+	if [[ `echo $DIFF | wc -c` -ge 2 ]]
+	then
+		echo $DIFF > ../`echo $FILE | tr / _`.diff
+	fi
 done
 cd ..
 rm -rf orig
