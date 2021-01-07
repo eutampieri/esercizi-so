@@ -1,0 +1,1 @@
+8,9c8,9 < void main(void){ < SD A={33.666}, B, C={-15.21}; --- > int main(void){ > SD A={33.666}, B;

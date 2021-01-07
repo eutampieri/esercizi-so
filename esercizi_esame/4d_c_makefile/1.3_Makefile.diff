@@ -1,0 +1,1 @@
+6c6 < gcc ${CFLAGS} -o main.exe main.o --- > gcc ${CFLAGS} -o main.exe main.o A.o
