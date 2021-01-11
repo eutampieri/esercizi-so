@@ -1,3 +1,3 @@
 #!/bin/bash
 
-gcc -ansi $1 -lpthread
+gcc -ansi -D_POSIX_C_SOURCE=200112L $1 DBGpthread.c -lpthread

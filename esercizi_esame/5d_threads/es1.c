@@ -4,6 +4,9 @@
 #include <inttypes.h>
 #include <stdio.h>
 
+#define DEBUG
+#include "DBGpthread.h"
+
 const uint8_t M = 20;
 const uint8_t N = 50;
 
@@ -14,16 +17,16 @@ pthread_cond_t cond_stud = PTHREAD_COND_INITIALIZER;
 
 void impiegata(void* _) {
     while(1) {
-        pthread_mutex_lock(&mutex);
+        DBGpthread_mutex_lock(&mutex, "lock impiegata");
         printf("Impiegata va a fare altro...\n");
         if(moduli == 0) {
             moduli = M;
             printf("Impiegata porta nuovi moduli...\n");
-            pthread_cond_signal(&cond_stud);
+            DBGpthread_cond_signal(&cond_stud, "impiegata sveglia studente");
         } else {
-            pthread_cond_wait(&cond_imp, &mutex);
+            DBGpthread_cond_wait(&cond_imp, &mutex, "Impiegata aspetta");
         }
-        pthread_mutex_unlock(&mutex);
+        DBGpthread_mutex_unlock(&mutex, "impiegata unlock");
     }
 }
 void studente(void* num) {
