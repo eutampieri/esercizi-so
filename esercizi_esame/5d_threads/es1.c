@@ -36,6 +36,7 @@ void impiegata(void* _) {
 }
 void studente(void* num) {
     int stud_n = (intptr_t*)(num);
+    int num_moduli = 0;
     while(1) {
         printf("%sParte studente %d...%s\n", GREEN, stud_n, RESET);
         pthread_mutex_lock(&mutex);
@@ -44,11 +45,17 @@ void studente(void* num) {
         }
         printf("%sStudente %d prende modulo... ci sono %d moduli adesso%s\n",GREEN, stud_n, moduli-1, RESET);
         moduli--;
+        num_moduli++;
         if(moduli == 0) {
             DBGpthread_cond_signal(&cond_imp, "segnalo mod finiti");
         }
         pthread_mutex_unlock(&mutex);
-        pthread_exit(NULL);
+#ifdef EXIT_AFTER_FORMS
+        if(num_moduli == 1e3) {
+            printf("%sHo preso %d moduli, esco...%s\n", GREEN, num_moduli, RESET);
+            pthread_exit(NULL);
+        }
+#endif
     }
 }
 
