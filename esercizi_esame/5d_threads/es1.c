@@ -22,13 +22,14 @@ pthread_cond_t cond_stud = PTHREAD_COND_INITIALIZER;
 void impiegata(void* _) {
     while(1) {
         DBGpthread_mutex_lock(&mutex, "lock impiegata");
-        printf("%sImpiegata va a fare altro...%s\n",PURPLE, RESET);
+        while (moduli > 0) {
+            printf("%sImpiegata va a fare altro...%s\n",PURPLE, RESET);
+            DBGpthread_cond_wait(&cond_imp, &mutex, "Impiegata aspetta");
+        }
         if(moduli == 0) {
             moduli = M;
             printf("%sImpiegata porta nuovi moduli...%s\n", PURPLE, RESET);
             DBGpthread_cond_broadcast(&cond_stud, "impiegata sveglia studenti");
-        } else {
-            DBGpthread_cond_wait(&cond_imp, &mutex, "Impiegata aspetta");
         }
         DBGpthread_mutex_unlock(&mutex, "impiegata unlock");
     }
@@ -36,11 +37,12 @@ void impiegata(void* _) {
 void studente(void* num) {
     int stud_n = (intptr_t*)(num);
     while(1) {
+        printf("%sParte studente %d...%s\n", GREEN, stud_n, RESET);
         pthread_mutex_lock(&mutex);
         while(moduli <= 0) {
             DBGpthread_cond_wait(&cond_stud, &mutex, "moduli finiti");
         }
-        printf("%sStudente %d prende modulo... ci sono %d moduli adesso%s\n",GREEN, stud_n, moduli, RESET);
+        printf("%sStudente %d prende modulo... ci sono %d moduli adesso%s\n",GREEN, stud_n, moduli-1, RESET);
         moduli--;
         if(moduli == 0) {
             DBGpthread_cond_signal(&cond_imp, "segnalo mod finiti");
